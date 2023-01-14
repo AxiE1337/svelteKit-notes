@@ -4,7 +4,6 @@
 	import dateFormat from '../lib/dateFormat';
 
 	export let data: PageServerData;
-	// console.log(data.session);
 </script>
 
 <div class="flex flex-col min-h-screen items-center justify-center">
@@ -15,7 +14,8 @@
 			<div class="border p-4 my-2 whitespace-pre-line">
 				<a href="/1">
 					<h1>{note.text}</h1>
-					<p>{dateFormat(note.updatedAt)}</p>
+					<!-- <p>{dateFormat(note?.updated_at)}</p> -->
+					<p>{note?.updated_at}</p>
 				</a>
 			</div>
 		{/each}

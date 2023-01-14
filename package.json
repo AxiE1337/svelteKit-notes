@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@auth/core": "^0.2.5",
 		"@auth/sveltekit": "^0.1.12",
+		"@xata.io/client": "^0.21.6",
 		"daisyui": "^2.46.1"
 	}
 }
