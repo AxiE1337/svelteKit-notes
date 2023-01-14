@@ -1,4 +1,4 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { error, redirect } from '@sveltejs/kit';
 import { getXataClient } from '../xata';
 
@@ -28,4 +28,23 @@ export const load: PageServerLoad = async (event) => {
 	return {
 		notes
 	};
+};
+
+export const actions: Actions = {
+	addNote: async (event) => {
+		const form = await event.request.formData();
+		const note = form.get('note');
+		const session = (await event.locals.getSession()) as ISession | null;
+
+		if (!session) {
+			throw redirect(303, '/login');
+		}
+
+		const data = await xata.db.notes.create({
+			uid: session.user.sub,
+			text: note as string,
+			updated_at: new Date()
+		});
+		return data;
+	}
 };

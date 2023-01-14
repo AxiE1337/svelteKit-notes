@@ -2,6 +2,7 @@
 	import '../styles/app.css';
 	import type { PageServerData } from './$types';
 	import dateFormat from '../lib/dateFormat';
+	import { enhance } from '$app/forms';
 
 	export let data: PageServerData;
 </script>
@@ -14,10 +15,13 @@
 			<div class="border p-4 my-2 whitespace-pre-line">
 				<a href="/1">
 					<h1>{note.text}</h1>
-					<!-- <p>{dateFormat(note?.updated_at)}</p> -->
-					<p>{note?.updated_at}</p>
+					<p>{dateFormat(note?.updated_at ? note.updated_at : undefined)}</p>
 				</a>
 			</div>
 		{/each}
 	</div>
+	<form method="POST" action="?/addNote" use:enhance>
+		<input type="text" name="note" />
+		<button class="btn btn-primary">add</button>
+	</form>
 </div>
