@@ -27,6 +27,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@auth/core": "^0.2.5",
+		"@auth/sveltekit": "^0.1.12",
 		"daisyui": "^2.46.1"
 	}
 }

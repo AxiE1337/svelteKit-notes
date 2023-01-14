@@ -1,9 +1,10 @@
 <script lang="ts">
-	import type { PageServerData } from './$types';
 	import '../styles/app.css';
+	import type { PageServerData } from './$types';
 	import dateFormat from '../lib/dateFormat';
 
 	export let data: PageServerData;
+	// console.log(data.session);
 </script>
 
 <div class="flex flex-col min-h-screen items-center justify-center">
