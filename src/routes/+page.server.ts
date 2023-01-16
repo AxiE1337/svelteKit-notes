@@ -25,7 +25,7 @@ export const actions: Actions = {
 			throw redirect(303, '/login');
 		}
 		const form = await event.request.formData();
-		const note = form.get('note');
+		const note = form.get('note') as string;
 
 		await xata.db.notes.create({
 			uid: session.user.sub,

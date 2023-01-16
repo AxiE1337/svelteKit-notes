@@ -17,7 +17,12 @@
 	const openModalHandler = () => {
 		open = !open;
 	};
-	const addNoteHandler: SubmitFunction = () => {
+	const addNoteHandler: SubmitFunction = ({ data, cancel }) => {
+		const { note } = Object.fromEntries(data);
+		if (note.length < 1) {
+			cancel();
+		}
+
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				notesStore.set(result.data?.notes);

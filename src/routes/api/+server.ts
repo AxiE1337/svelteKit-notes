@@ -13,6 +13,15 @@ export const PATCH: RequestHandler = async ({ locals, request }) => {
 
 	const data = await request.json();
 
+	//delete if noteText is empty
+	if (data.noteText.length < 1) {
+		await xata.db.notes.delete(data.noteId);
+		const updatedNotes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();
+
+		return new Response(JSON.stringify({ notes: updatedNotes }));
+	}
+
+	//update if note
 	await xata.db.notes?.update(data.noteId, { text: data.noteText });
 	const updatedNotes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();
 
