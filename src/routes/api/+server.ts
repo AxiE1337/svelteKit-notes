@@ -22,7 +22,7 @@ export const PATCH: RequestHandler = async ({ locals, request }) => {
 	}
 
 	//update if note
-	await xata.db.notes?.update(data.noteId, { text: data.noteText });
+	await xata.db.notes?.update(data.noteId, { text: data.noteText, updated_at: new Date() });
 	const updatedNotes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();
 
 	return new Response(JSON.stringify({ notes: updatedNotes }));

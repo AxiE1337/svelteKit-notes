@@ -6,7 +6,8 @@
 	export let data: PageData;
 
 	const signOutHandler = async () => {
-		signOut({ callbackUrl: '/login' });
+		await signOut({ callbackUrl: '/login' });
+		window.location.reload();
 	};
 </script>
 

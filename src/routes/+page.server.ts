@@ -30,6 +30,7 @@ export const actions: Actions = {
 		await xata.db.notes.create({
 			uid: session.user.sub,
 			text: note as string,
+			created_at: new Date(),
 			updated_at: new Date()
 		});
 		const notes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();

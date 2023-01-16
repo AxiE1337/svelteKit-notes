@@ -47,11 +47,7 @@
 				class="flex flex-col border p-4 my-2 whitespace-pre-line"
 			>
 				<h1>{note.text}</h1>
-				{#if typeof note.updated_at === 'string'}
-					<p>{note?.updated_at}</p>
-				{:else}
-					<p>{dateFormat(note?.updated_at ? note.updated_at : undefined)}</p>
-				{/if}
+				<p>{dateFormat(note?.updated_at ? note?.updated_at : undefined)}</p>
 			</div>
 		{/each}
 	</div>
