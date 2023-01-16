@@ -15,10 +15,7 @@ export const load: PageServerLoad = async (event) => {
 	if (!notes) {
 		throw error(404, 'Notes not found');
 	}
-
-	return {
-		notes
-	};
+	return { notes: notes };
 };
 
 export const actions: Actions = {
@@ -35,6 +32,7 @@ export const actions: Actions = {
 			text: note as string,
 			updated_at: new Date()
 		});
-		return;
+		const notes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();
+		return { notes };
 	}
 };

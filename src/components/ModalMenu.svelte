@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { notesStore } from '../store/store';
 	export let open: boolean = false;
 	export let noteText: string | null | undefined = '';
 	export let noteId: string = '';
@@ -13,13 +14,18 @@
 			method: 'PATCH',
 			body: JSON.stringify({ noteId: noteId, noteText: noteText })
 		});
-		const data = await res.json();
+		const { notes } = await res.json();
+		notesStore.set(notes);
+		closeHandler();
 	};
 	const deleteHandler = async () => {
 		const res = await fetch('/api', {
 			method: 'DELETE',
 			body: JSON.stringify(noteId)
 		});
+		const { notes } = await res.json();
+		notesStore.set(notes);
+		closeHandler();
 	};
 </script>
 

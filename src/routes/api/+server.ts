@@ -1,38 +1,32 @@
-import { error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import type { ISession } from '$lib/types';
+import { error, redirect } from '@sveltejs/kit';
 import { getXataClient } from '../../xata';
 
 const xata = getXataClient();
 
 export const PATCH: RequestHandler = async ({ locals, request }) => {
-	const session = await locals.getSession();
+	const session = (await locals.getSession()) as ISession | null;
 	if (!session) {
 		throw error(401, 'unauthorized ');
 	}
 
 	const data = await request.json();
 
-	const note = await xata.db.notes.read(data.noteId);
-	const updatedNote = await note?.update({ text: data.noteText });
+	await xata.db.notes?.update(data.noteId, { text: data.noteText });
+	const updatedNotes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();
 
-	return new Response(JSON.stringify({ note: updatedNote }));
+	return new Response(JSON.stringify({ notes: updatedNotes }));
 };
 
 export const DELETE: RequestHandler = async ({ locals, request }) => {
-	const session = await locals.getSession();
+	const session = (await locals.getSession()) as ISession | null;
 	if (!session) {
 		throw error(401, 'unauthorized ');
 	}
 	const id = await request.json();
 
 	await xata.db.notes.delete(id);
-	return new Response();
-};
-
-export const GET: RequestHandler = async ({ locals }) => {
-	const session = await locals.getSession();
-	if (!session) {
-		throw error(401, 'unauthorized ');
-	}
-	return new Response(JSON.stringify({ text: 'hello' }));
+	const updatedNotes = await xata.db.notes.filter({ uid: session?.user.sub }).getAll();
+	return new Response(JSON.stringify({ notes: updatedNotes }));
 };
