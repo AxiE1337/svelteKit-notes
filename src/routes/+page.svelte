@@ -35,7 +35,7 @@
 <div class="flex flex-col min-h-screen items-center justify-center">
 	<h1>Notes</h1>
 	<input type="text" placeholder="Search for notes" />
-	<div class="flex flex-col">
+	<div class="grid grid-cols-2 auto-rows-auto">
 		{#each $notesStore as note}
 			<div
 				on:keydown
@@ -44,9 +44,9 @@
 					modalText = note.text;
 					noteId = note.id;
 				}}
-				class="flex flex-col border p-4 my-2 whitespace-pre-line"
+				class="border p-4 my-2 mx-2 max-h-52 overflow-hidden"
 			>
-				<h1>{note.text}</h1>
+				<h1 class="whitespace-pre-line">{note.text}</h1>
 				<p>{dateFormat(note?.updated_at ? note?.updated_at : undefined)}</p>
 			</div>
 		{/each}

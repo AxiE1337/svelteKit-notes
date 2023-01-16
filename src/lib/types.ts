@@ -9,7 +9,7 @@ export interface ISession {
 }
 export interface INote {
 	id: string;
-	text: string | null | undefined;
+	text: string;
 	uid: string | null | undefined;
 	updated_at: Date | null | undefined;
 	created_at: Date | null | undefined;

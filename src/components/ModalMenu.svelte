@@ -32,7 +32,7 @@
 <div class={`fixed inset-0 ${open ? 'flex' : 'hidden'} items-center justify-center`}>
 	<div on:keydown on:click={closeHandler} class="fixed inset-0 bg-gray-500 bg-opacity-75" />
 	<div class="z-20 w-3/4 h-2/4 flex flex-col items-center justify-center bg-white text-black">
-		<h1 bind:textContent={noteText} contenteditable>{noteText}</h1>
+		<textarea bind:value={noteText} rows="10" cols="40" />
 		<button on:click={saveHandler} class="btn btn-sm">save</button>
 		<button on:click={deleteHandler} class="btn btn-sm">delete</button>
 	</div>
