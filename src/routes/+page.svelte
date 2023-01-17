@@ -12,7 +12,7 @@
 	notesStore.set(data.notes);
 
 	let open: boolean = false;
-	let modalText: string | null | undefined = '';
+	let modalText: string = '';
 	let noteId: string = '';
 	let searchTagValue: string = '';
 	let filteredNotes: INote[] = [];
