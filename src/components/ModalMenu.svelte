@@ -5,6 +5,9 @@
 	export let noteId: string = '';
 	export let onClose: () => void;
 
+	let text = noteText;
+	$: isEdited = noteText !== text;
+
 	const closeHandler = () => {
 		onClose();
 	};
@@ -31,9 +34,20 @@
 
 <div class={`fixed inset-0 ${open ? 'flex' : 'hidden'} items-center justify-center`}>
 	<div on:keydown on:click={closeHandler} class="fixed inset-0 bg-gray-500 bg-opacity-75" />
-	<div class="z-20 w-3/4 h-2/4 flex flex-col items-center justify-center bg-white text-black">
-		<textarea bind:value={noteText} rows="10" cols="40" />
-		<button on:click={saveHandler} class="btn btn-sm">save</button>
-		<button on:click={deleteHandler} class="btn btn-sm">delete</button>
+	<div
+		class="relative z-20 w-4/5 h-3/4 flex flex-col items-center justify-center rounded-sm bg-white text-black"
+	>
+		<textarea
+			bind:value={noteText}
+			rows="20"
+			cols="70"
+			class="textarea rounded-none bg-stone-100"
+		/>
+		<div class="absolute bottom-2 flex gap-2">
+			{#if isEdited}
+				<button on:click={saveHandler} class="btn btn-sm">save</button>
+			{/if}
+			<button on:click={deleteHandler} class="btn btn-error btn-sm">delete</button>
+		</div>
 	</div>
 </div>

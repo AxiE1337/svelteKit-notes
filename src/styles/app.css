@@ -12,4 +12,7 @@
 	.btn {
 		@apply hover:shadow-xl;
 	}
+	.input {
+		@apply focus:outline-none;
+	}
 }

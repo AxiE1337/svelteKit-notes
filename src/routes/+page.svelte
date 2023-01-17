@@ -34,8 +34,12 @@
 
 <div class="flex flex-col min-h-screen items-center justify-center">
 	<h1>Notes</h1>
-	<input type="text" placeholder="Search for notes" />
-	<div class="grid grid-cols-2 auto-rows-auto">
+	<input
+		type="text"
+		placeholder="Search for notes"
+		class="input input-bordered rounded-md w-full max-w-xs"
+	/>
+	<div class="grid grid-cols-2 auto-rows-auto w-4/5">
 		{#each $notesStore as note}
 			<div
 				on:keydown
@@ -44,16 +48,28 @@
 					modalText = note.text;
 					noteId = note.id;
 				}}
-				class="border p-4 my-2 mx-2 max-h-52 overflow-hidden"
+				class="relative border p-4 my-2 mx-2 max-h-52  overflow-hidden rounded-md"
 			>
-				<h1 class="whitespace-pre-line">{note.text}</h1>
-				<p>{dateFormat(note?.updated_at ? note?.updated_at : undefined)}</p>
+				<h1 class="mb-2 whitespace-pre-line">{note.text}</h1>
+				<p class="absolute bottom-1 text-xs bg-white select-none">
+					{dateFormat(note?.updated_at ? note?.updated_at : undefined)}
+				</p>
 			</div>
 		{/each}
 	</div>
-	<form method="POST" action="?/addNote" use:enhance={addNoteHandler}>
-		<input type="text" name="note" />
-		<button class="btn btn-xs">add</button>
+	<form
+		method="POST"
+		action="?/addNote"
+		use:enhance={addNoteHandler}
+		class="flex items-center justify-center"
+	>
+		<input
+			type="text"
+			name="note"
+			class="input input-bordered w-full max-w-xs rounded-none rounded-l-md"
+			placeholder="text..."
+		/>
+		<button class="btn rounded-none rounded-r-md">add</button>
 	</form>
 	<ModalMenu {open} onClose={openModalHandler} noteText={modalText} {noteId} />
 </div>
