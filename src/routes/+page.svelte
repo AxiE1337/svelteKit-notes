@@ -2,6 +2,7 @@
 	import '../styles/app.css';
 	import type { PageData } from './$types';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import type { INote } from '$lib/types';
 	import { enhance } from '$app/forms';
 	import { notesStore } from '../store/store';
 	import dateFormat from '$lib/dateFormat';
@@ -13,6 +14,10 @@
 	let open: boolean = false;
 	let modalText: string | null | undefined = '';
 	let noteId: string = '';
+	let searchTagValue: string = '';
+	let filteredNotes: INote[] = [];
+
+	$: filteredNotes = $notesStore.filter((note) => note.text.includes(searchTagValue));
 
 	const openModalHandler = () => {
 		open = !open;
@@ -38,9 +43,10 @@
 		type="text"
 		placeholder="Search for notes"
 		class="input input-bordered rounded-md w-full max-w-xs"
+		bind:value={searchTagValue}
 	/>
 	<div class="grid grid-cols-2 auto-rows-auto w-4/5">
-		{#each $notesStore as note}
+		{#each filteredNotes as note}
 			<div
 				on:keydown
 				on:click={() => {
