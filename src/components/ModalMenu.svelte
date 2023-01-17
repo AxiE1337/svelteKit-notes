@@ -35,9 +35,15 @@
 <div class={`fixed inset-0 ${open ? 'flex' : 'hidden'} items-center justify-center`}>
 	<div on:keydown on:click={closeHandler} class="fixed inset-0 bg-gray-500 bg-opacity-75" />
 	<div
-		class="relative z-20 w-4/5 h-3/4 flex flex-col items-center justify-center rounded-sm bg-white text-black"
+		class="relative z-20 w-4/5 h-3/4 flex flex-col items-center justify-center rounded-sm bg-white dark:bg-gray-800"
 	>
-		<textarea bind:value={text} rows="20" cols="70" class="textarea rounded-none bg-stone-100" />
+		<textarea
+			bind:value={text}
+			rows="15"
+			cols="30"
+			maxlength="10000"
+			class="textarea rounded-none bg-stone-100 text-black dark:bg-gray-900 dark:text-yellow-50"
+		/>
 		<div class="absolute bottom-2 flex gap-2">
 			{#if isEdited}
 				<button on:click={saveHandler} class="btn btn-sm">save</button>

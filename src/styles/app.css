@@ -13,6 +13,6 @@
 		@apply hover:shadow-xl;
 	}
 	.input {
-		@apply focus:outline-none;
+		@apply focus:outline-none dark:bg-gray-900;
 	}
 }

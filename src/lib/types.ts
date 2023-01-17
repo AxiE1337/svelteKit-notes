@@ -14,3 +14,5 @@ export interface INote {
 	updated_at: Date | null | undefined;
 	created_at: Date | null | undefined;
 }
+
+export type Theme = 'dark' | 'light';

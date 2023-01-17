@@ -37,7 +37,7 @@
 	};
 </script>
 
-<div class="flex flex-col min-h-screen items-center justify-center">
+<div class="flex flex-col min-h-screen items-center justify-center dark:bg-gray-800">
 	<h1>Notes</h1>
 	<input
 		type="text"
@@ -57,7 +57,7 @@
 				class="relative border p-4 my-2 mx-2 max-h-52  overflow-hidden rounded-md"
 			>
 				<h1 class="mb-2 whitespace-pre-line">{note.text}</h1>
-				<p class="absolute bottom-1 text-xs bg-white select-none">
+				<p class="absolute bottom-1 text-xs bg-white dark:bg-gray-900 rounded-md px-1 select-none">
 					{dateFormat(note?.updated_at ? note?.updated_at : undefined)}
 				</p>
 			</div>
