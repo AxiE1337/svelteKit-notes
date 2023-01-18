@@ -2,7 +2,7 @@
 	import '../styles/app.css';
 	import type { PageData } from './$types';
 	import { signOut } from '@auth/sveltekit/client';
-	import { setTheme } from '../store/store';
+	import { setTheme } from '../hooks.client';
 	import { onMount } from 'svelte';
 
 	export let data: PageData;
@@ -16,12 +16,13 @@
 		const theme = checkboxValue ? 'light' : 'dark';
 		setTheme(theme);
 	};
-	onMount(() => {
-		checkboxValue = setTheme() === 'light' ? true : false;
+	onMount(async () => {
+		const theme = await setTheme();
+		checkboxValue = theme === 'light' ? true : false;
 	});
 </script>
 
-<nav class="fixed navbar bg-base-100 dark:bg-gray-900">
+<nav class="navbar bg-base-100 dark:bg-gray-900">
 	<div class="flex-1" />
 	{#if data.session}
 		<div class="flex-none">

@@ -45,7 +45,7 @@
 		class="input input-bordered rounded-md w-full max-w-xs"
 		bind:value={searchTagValue}
 	/>
-	<div class="grid grid-cols-2 auto-rows-auto w-4/5">
+	<div class="grid grid-flow-row-dense grid-cols-2 grid-rows-3 w-4/5 md:w-full">
 		{#each filteredNotes as note}
 			<div
 				on:keydown
@@ -56,8 +56,10 @@
 				}}
 				class="relative border p-4 my-2 mx-2 max-h-52  overflow-hidden rounded-md"
 			>
-				<h1 class="mb-2 whitespace-pre-line">{note.text}</h1>
-				<p class="absolute bottom-1 text-xs bg-white dark:bg-gray-900 rounded-md px-1 select-none">
+				<h1 class="mb-2 whitespace-pre-line py-2">{note.text}</h1>
+				<p
+					class="absolute bottom-0 right-1 text-xs bg-white dark:bg-gray-900 rounded-md px-1 select-none"
+				>
 					{dateFormat(note?.updated_at ? note?.updated_at : undefined)}
 				</p>
 			</div>
