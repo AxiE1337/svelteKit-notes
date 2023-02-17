@@ -7,6 +7,7 @@
 ### I wanted to try SvelteKit and it is my firts project so i'm just experimenting with stuff.  
 
 <h1 align='center'>Images</h1>
+
 ![svelteKit-notes](https://user-images.githubusercontent.com/88508120/219617292-f81fb26c-1a15-4e9e-973f-c801a3756668.png)
 
 # Build with 
