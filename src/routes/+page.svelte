@@ -16,6 +16,7 @@
 	let noteId: string = '';
 	let searchTagValue: string = '';
 	let filteredNotes: INote[] = [];
+	let isAdding: boolean = false;
 
 	$: filteredNotes = $notesStore.filter((note) => note.text.includes(searchTagValue));
 
@@ -27,11 +28,12 @@
 		if (note.length < 1) {
 			cancel();
 		}
-
+		isAdding = true;
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				notesStore.set(result.data?.notes);
 				await update();
+				isAdding = false;
 			}
 		};
 	};
@@ -77,7 +79,9 @@
 			class="input input-bordered w-full max-w-xs rounded-none rounded-l-md"
 			placeholder="text..."
 		/>
-		<button class="btn rounded-none rounded-r-md">add</button>
+		<button disabled={isAdding} class="btn rounded-none rounded-r-md"
+			>{isAdding ? 'adding' : 'add'}</button
+		>
 	</form>
 	<ModalMenu {open} onClose={openModalHandler} noteText={modalText} {noteId} />
 </div>
