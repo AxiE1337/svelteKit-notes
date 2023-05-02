@@ -4,6 +4,8 @@
 	export let noteText: string = '';
 	export let noteId: string = '';
 	export let onClose: () => void;
+	let isSaving: boolean = false;
+	let isDeliting: boolean = false;
 
 	$: text = noteText;
 	$: isEdited = noteText !== text;
@@ -13,21 +15,37 @@
 	};
 
 	export const saveHandler = async () => {
-		const res = await fetch('/api', {
-			method: 'PATCH',
-			body: JSON.stringify({ noteId: noteId, noteText: text })
-		});
-		const { notes } = await res.json();
-		notesStore.set(notes);
+		try {
+			isSaving = true;
+			const res = await fetch('/api', {
+				method: 'PATCH',
+				body: JSON.stringify({ noteId: noteId, noteText: text })
+			});
+			const { notes } = await res.json();
+			notesStore.set(notes);
+			isSaving = false;
+		} catch (e: unknown) {
+			if (e instanceof Error) {
+				console.error(e.message);
+			}
+		}
 		closeHandler();
 	};
 	const deleteHandler = async () => {
-		const res = await fetch('/api', {
-			method: 'DELETE',
-			body: JSON.stringify(noteId)
-		});
-		const { notes } = await res.json();
-		notesStore.set(notes);
+		try {
+			isDeliting = true;
+			const res = await fetch('/api', {
+				method: 'DELETE',
+				body: JSON.stringify(noteId)
+			});
+			const { notes } = await res.json();
+			notesStore.set(notes);
+			isDeliting = false;
+		} catch (e: unknown) {
+			if (e instanceof Error) {
+				console.error(e.message);
+			}
+		}
 		closeHandler();
 	};
 </script>
@@ -46,9 +64,13 @@
 		/>
 		<div class="absolute bottom-2 flex gap-2">
 			{#if isEdited}
-				<button on:click={saveHandler} class="btn btn-sm">save</button>
+				<button disabled={isSaving} on:click={saveHandler} class="btn btn-sm"
+					>{isSaving ? 'saving' : 'save'}</button
+				>
 			{/if}
-			<button on:click={deleteHandler} class="btn btn-error btn-sm">delete</button>
+			<button disabled={isDeliting} on:click={deleteHandler} class="btn btn-error btn-sm"
+				>{isDeliting ? 'deleting' : 'delete'}</button
+			>
 		</div>
 	</div>
 </div>
