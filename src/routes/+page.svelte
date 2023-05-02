@@ -27,6 +27,7 @@
 		const { note } = Object.fromEntries(data);
 		if (note.length < 1) {
 			cancel();
+			return;
 		}
 		isAdding = true;
 		return async ({ result, update }) => {
